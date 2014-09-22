@@ -1,5 +1,7 @@
+module Plane where
+
 data Direction = Lturn | Straight | Rturn
-                 deriving (Show)
+                 deriving (Show, Eq)
 
 turn :: (Num a, Ord a) => (a, a) -> (a, a) -> (a, a) -> Direction
 turn (x1,y1) (x2,y2) (x3,y3) | cross > 0  = Lturn
