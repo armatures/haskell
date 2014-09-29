@@ -1,4 +1,5 @@
 module Plane where
+import Data.List
 
 data Direction = Lturn | Straight | Rturn
                  deriving (Show, Eq)
@@ -11,3 +12,7 @@ turn (x1,y1) (x2,y2) (x3,y3) | cross > 0  = Lturn
 
 turns (x1:x2:x3:xs) = (turn x1 x2 x3):turns(x2:x3:xs)
 turns _ = []
+
+groupByY xs = groupBy yCoords xs
+                      where yCoords (_,a) (_,b) = a == b
+
