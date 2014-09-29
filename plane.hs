@@ -13,6 +13,16 @@ turn (x1,y1) (x2,y2) (x3,y3) | cross > 0  = Lturn
 turns (x1:x2:x3:xs) = (turn x1 x2 x3):turns(x2:x3:xs)
 turns _ = []
 
+byX (a,_) (b,_) = compare a b
+byY (_,a) (_,b) = compare a b
+sortByX x = sortBy byX x
+sortByY y = sortBy byY y
+
 groupByY xs = groupBy yCoords xs
                       where yCoords (_,a) (_,b) = a == b
 
+testList = [(-1,1), (1,0), (0,0), (0,1) ]
+
+intermediate xs =  (head $ groupByY (sortByY xs))
+firstGroup xs = head $ groupByY (sortByY xs)
+firstPoint xs = head (sortByX (firstGroup xs))
