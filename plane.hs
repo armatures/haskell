@@ -23,6 +23,12 @@ groupByY xs = groupBy yCoords xs
 
 testList = [(-1,1), (1,0), (0,0), (0,1) ]
 
-intermediate xs =  (head $ groupByY (sortByY xs))
 firstGroup xs = head $ groupByY (sortByY xs)
 firstPoint xs = head (sortByX (firstGroup xs))
+
+otherPoints xs = filter (others xs) xs
+others xs = (/=) (firstPoint xs) --points that aren't the firstPoint
+
+sortByPolarAngle xs = sortBy (byPolarAngle (firstPoint xs)) (otherPoints xs) --I've got to find how not to include the initial point twice
+byPolarAngle (initx,inity) (x1,y1) (x2,y2) = compare ( cotan (initx, inity) (x1,y1) ) ( cotan (initx, inity) (x2,y2) ) 
+                                              where cotan (x1, y1) (x2,y2) = (y2-y1)/(x2-x1)
